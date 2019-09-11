@@ -1,0 +1,10 @@
+.sidebar {
+  flex-grow: 1;
+  padding: 16px;
+  max-width: 600px;
+}
+
+.panel {
+  padding: 5px;
+  border-bottom: 1px solid #eee;
+}
