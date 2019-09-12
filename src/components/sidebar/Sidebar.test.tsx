@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MapContainer from './MapContainer';
-import { cleanup } from '@testing-library/react';
-
-afterEach(cleanup);
+import Sidebar from './Sidebar';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<MapContainer />, div);
+  
+  ReactDOM.render(<Sidebar />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

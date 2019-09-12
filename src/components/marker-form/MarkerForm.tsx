@@ -7,11 +7,15 @@ const MarkerForm = (props: any) => {
   const { marker, show, onClose } = props;
   const [query, setQuery] = useState('');
   const [url, setUrl] = useState(URL);
+  const [address, setAddress] = useState('');
+
+  if(!address && marker && marker.label) {
+    setAddress(marker.label);
+  }
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    if (event) {debugger
-      const address = event.target.address.value;
+    if (event) {
       setUrl(`${URL}${address}`);
       setQuery(address);
     } else {
@@ -47,16 +51,22 @@ const MarkerForm = (props: any) => {
           <Modal.Title>Marker</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group controlId="address">
             <Form.Label>Search map</Form.Label>
-            <Form.Control name="address" type="text" placeholder="Please enter any address" defaultValue={marker ? marker.label : ''} />
+            <Form.Control
+              name="address" 
+              type="text" 
+              value={address}
+              placeholder="Please enter any address" 
+              onChange={(e: any) => setAddress(e.target.value)}
+               />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => onClose(null)}>
             Close
           </Button>
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="primary" disabled={!address}>
             Save
           </Button>
         </Modal.Footer>

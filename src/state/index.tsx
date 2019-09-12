@@ -16,28 +16,11 @@ export const initialState: AppState = {
   },
   {
     id: '2',
-    label: 'Berlin, Germany',
-    lat: 52.52000659999999,
-    lng: 13.404954
-  }, {
-    id: '3',
-    label: 'Berlin, Germany',
-    lat: 52.52000659999999,
-    lng: 13.404954
-  },
-  {
-    id: '4',
-    label: 'Berlin, Germany',
-    lat: 52.52000659999999,
-    lng: 13.404954
-  },
-  {
-    id: '5',
-    label: 'Berlin, Germany',
-    lat: 52.52000659999999,
-    lng: 13.404954
+    label: 'Munich, Germany',
+    lat: 48.1351253,
+    lng: 11.5819805
   }],
-  center: { lat: 11.0168, lng: 76.9558 }
+  center: { lat: 52.52000659999999, lng: 13.404954 }
 }
 
 const defaultDispatch: React.Dispatch<Action> = () => initialState;
