@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
+import './MarkerForm.css';
 
 const URL = `https://maps.googleapis.com/maps/api/geocode/json?key=${process.env.REACT_APP_GM_API_KEY}&address=`;
+
+const STATUS = {
+  OK: 'OK',
+  ZERO_RESULTS: 'ZERO_RESULTS'
+}
 
 const MarkerForm = (props: any) => {
   const { marker, show, onClose } = props;
   const [query, setQuery] = useState('');
   const [url, setUrl] = useState(URL);
   const [address, setAddress] = useState('');
+  const [message, setMessage] = useState('');
 
-  if(!address && marker && marker.label) {
+  if (!address && marker && marker.label) {
     setAddress(marker.label);
-  }
+  } 
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -27,15 +34,23 @@ const MarkerForm = (props: any) => {
     const fetchData = async () => {
       const result = await fetch(url);
 
-      const data = await result.json();
+      const { status, results } = await result.json();
 
-      onClose({
-        data: data.results,
-        label: data.results[0].formatted_address,
-        lat: data.results[0].geometry.location.lat,
-        lng: data.results[0].geometry.location.lng,
-        id: marker ? marker.id : Date.now()
-      });
+      if (status === STATUS.OK) {
+        setMessage('');
+        setAddress('');
+        onClose({
+          data: results,
+          label: results[0].formatted_address,
+          lat: results[0].geometry.location.lat,
+          lng: results[0].geometry.location.lng,
+          id: marker ? marker.id : Date.now()
+        });
+      } else if(status === STATUS.ZERO_RESULTS) {
+        setMessage('No results');
+      } else {
+        setMessage('Unexpected error occured');
+      }
     };
 
     if (query) {
@@ -54,12 +69,15 @@ const MarkerForm = (props: any) => {
           <Form.Group controlId="address">
             <Form.Label>Search map</Form.Label>
             <Form.Control
-              name="address" 
-              type="text" 
+              name="address"
+              type="text"
               value={address}
-              placeholder="Please enter any address" 
+              placeholder="Please enter any address"
               onChange={(e: any) => setAddress(e.target.value)}
-               />
+            />
+            <div className="error">
+              {message}
+            </div>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
