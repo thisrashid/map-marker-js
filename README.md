@@ -35,8 +35,8 @@ All the changes should be immediately visible on the map.
 
 ## Installation
 * create .env file in root folder and create following variables:
-  ```
-REACT_APP_GM_API_KEY=<Google API Key>
-REACT_APP_API_URL=<backend API URL>
+```
+REACT_APP_GM_API_KEY=[Google API Key]
+REACT_APP_API_URL=[backend API URL]
 REACT_APP_GOOGLE_GEOCODE_URL=https://maps.googleapis.com/maps/api/geocode/json
-  ```
+```
