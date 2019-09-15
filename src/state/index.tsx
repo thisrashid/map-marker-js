@@ -25,7 +25,6 @@ export const initialState: AppState = {
 
 const defaultDispatch: React.Dispatch<Action> = () => initialState;
 
-// export const StateContext = createContext([initialState, defaultDispatch]);
 export const StateContext = createContext({ state: initialState, dispatch: defaultDispatch });
 
 export const StateProvider = ({ reducer, initialState, children }: { reducer: Reducer<AppState, Action>, initialState: AppState, children: any }) => {
