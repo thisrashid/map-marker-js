@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import './MarkerForm.css';
 
-const URL = `https://maps.googleapis.com/maps/api/geocode/json?key=${process.env.REACT_APP_GM_API_KEY}&address=`;
+const URL = `${process.env.REACT_APP_GOOGLE_GEOCODE_URL}?key=${process.env.REACT_APP_GM_API_KEY}&address=`;
 
 const STATUS = {
   OK: 'OK',
@@ -40,11 +40,10 @@ const MarkerForm = (props: any) => {
         setMessage('');
         setAddress('');
         onClose({
-          data: results,
           label: results[0].formatted_address,
           lat: results[0].geometry.location.lat,
           lng: results[0].geometry.location.lng,
-          id: marker ? marker.id : Date.now()
+          id: marker ? marker.id : undefined
         });
       } else if(status === STATUS.ZERO_RESULTS) {
         setMessage('No results');

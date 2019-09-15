@@ -2,28 +2,27 @@ import React, { useState } from 'react';
 import MarkerForm from '../marker-form/MarkerForm';
 import { Button, Card, ButtonToolbar } from 'react-bootstrap';
 import { useStateValue } from '../../state';
-import { EditMarkerAction, DeleteMarkerAction, SetCenterAction } from '../../state/actions';
 import { IMarker } from '../../models/marker';
 import './MarkerCard.css';
+import { deleteMarkerService, addOrEditMarker } from '../../services/marker.service';
 
 const MarkerCard = (props: any) => {
   const { marker } = props;
 
   const [showModal, setShowModal] = useState(false);
-  const { dispatch } = useStateValue();
+  const { state: { authToken }, dispatch } = useStateValue();
 
   const handleClose = (payload: IMarker) => {
     setShowModal(false);
     if (payload) {
-      dispatch(EditMarkerAction(payload));
-      dispatch(SetCenterAction({ lat: payload.lat, lng: payload.lng }));
+      addOrEditMarker(marker, authToken, dispatch);
     }
   }
 
   const handleDelete = () => {
     const conf = window.confirm('Are you sure to delete?');
     if (conf) {
-      dispatch(DeleteMarkerAction(marker));
+      deleteMarkerService(marker, authToken, dispatch);
     }
   }
 

@@ -5,22 +5,26 @@ import { Action, ACTION_TYPES } from './actions';
 export interface AppState {
   markers: IMarker[];
   center: { lat: number, lng: number };
+  authToken: string;
 }
 
 export const initialState: AppState = {
-  markers: [{
-    id: '1',
-    label: 'Berlin, Germany',
-    lat: 52.52000659999999,
-    lng: 13.404954
-  },
-  {
-    id: '2',
-    label: 'Munich, Germany',
-    lat: 48.1351253,
-    lng: 11.5819805
-  }],
-  center: { lat: 52.52000659999999, lng: 13.404954 }
+  markers: [
+    // {
+    //   id: '1',
+    //   label: 'Berlin, Germany',
+    //   lat: 52.52000659999999,
+    //   lng: 13.404954
+    // },
+    // {
+    //   id: '2',
+    //   label: 'Munich, Germany',
+    //   lat: 48.1351253,
+    //   lng: 11.5819805
+    // }
+  ],
+  center: { lat: 52.52000659999999, lng: 13.404954 },
+  authToken: 'dGVzdHVzZXI6ZG9udGtub3c='
 }
 
 const defaultDispatch: React.Dispatch<Action> = () => initialState;
@@ -39,6 +43,9 @@ export const useStateValue = () => useContext(StateContext);
 
 export const AppReducer = (state: AppState = initialState, action: Action) => {
   switch (action.type) {
+    case ACTION_TYPES.INIT:
+      return { ...state, markers: [...action.payload] };
+
     case ACTION_TYPES.ADD:
       return { ...state, markers: [...state.markers, action.payload] };
 

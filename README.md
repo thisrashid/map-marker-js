@@ -27,3 +27,16 @@ All the changes should be immediately visible on the map.
   * Marker Card: it should accept marker object (from Marker List component) and create the UI for the marker
     * Edit: on click of edit button open dialog to modify marker.
     * Delete: dispatch and action to delete the element from context
+
+### TODO
+
+* pagination for markers list
+* search/filter/sort in already added markers
+
+## Installation
+* create .env file in root folder and create following variables:
+  ```
+REACT_APP_GM_API_KEY=<Google API Key>
+REACT_APP_API_URL=<backend API URL>
+REACT_APP_GOOGLE_GEOCODE_URL=https://maps.googleapis.com/maps/api/geocode/json
+  ```

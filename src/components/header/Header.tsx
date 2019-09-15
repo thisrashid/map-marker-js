@@ -3,18 +3,17 @@ import MarkerForm from '../marker-form/MarkerForm';
 import { IMarker } from '../../models/marker';
 import { useStateValue } from '../../state';
 import { Button } from 'react-bootstrap';
-import { AddMarkerAction, SetCenterAction } from '../../state/actions';
 import './Header.css';
+import { addOrEditMarker } from '../../services/marker.service';
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
-  const { dispatch } = useStateValue();
+  const { state: { authToken }, dispatch } = useStateValue();
 
   const handleClose = (payload: IMarker) => {
     setShowModal(false);
     if(payload) {
-      dispatch(AddMarkerAction(payload));
-      dispatch(SetCenterAction({lat: payload.lat, lng: payload.lng}));
+      addOrEditMarker(payload, authToken, dispatch);
     }
   }
   return (
