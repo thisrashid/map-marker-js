@@ -20,6 +20,7 @@ const MarkerCard = (props: any) => {
   }
 
   const handleDelete = () => {
+    // TODO: replace window.confirm with modal dialog
     const conf = window.confirm('Are you sure to delete?');
     if (conf) {
       deleteMarkerService(marker, authToken, dispatch);
